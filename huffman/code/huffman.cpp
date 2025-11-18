@@ -30,7 +30,7 @@ private:
         // Compare the node at 'index' with its parent.
         // If it's smaller, swap them and continue bubbling up.
         int parent = (index-1)/2;
-        if(parent>0){
+        while(index>0){
             if(heap[index]<heap[parent]){
                 std::swap(heap[index],heap[parent]);
                 index=parent;
@@ -54,8 +54,8 @@ private:
         }
         if(smallest != index){
             std::swap(heap[index],heap[smallest]);
+            index=smallest;
         }
-        bubble_down(index);
     }
 
     void heap_insert(Node* node) {
@@ -111,9 +111,13 @@ public:
     void build_tree() {
       // TODO
       int size= heap.size();
-      int start= (size/2)-1;
-      for (int i=start; i>=0; i--){
-        bubble_down(i);
+      while(size>1){
+        Node* left = pop();
+        Node* right = pop();
+        Node* internal= new Node(left->freq+right->freq);
+        internal->left = left;
+        internal->right = right;
+        heap_insert(internal); 
       }
     }
 
