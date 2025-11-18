@@ -118,8 +118,7 @@ public:
     // Called once, and builds the code.
     void build_tree() {
       // TODO
-      int size= heap.size();
-      while(size>1){
+      while(heap.size()>1){
         Node* left = pop();
         Node* right = pop();
         Node* internal= new Node(left->freq+right->freq);
