@@ -43,18 +43,20 @@ private:
         // Compare the node at 'index' with its children.
         // If it's larger than the smaller child, swap them
         // and continue bubbling down.
+        int size= heap.size();
         int smallest = index;
         int left = 2*index + 1;
         int right = 2* index + 2;
-        if(heap[left]->freq<heap[smallest]->freq){
+        if(left<size && heap[left]->freq<heap[smallest]->freq){
             smallest=left;
         }
-        if(heap[right]->freq< heap[index]->freq){
+        if(right<size && heap[right]->freq< heap[index]->freq){
             smallest=right;
         }
         if(smallest != index){
             std::swap(heap[index],heap[smallest]);
             index=smallest;
+            bubble_down(smallest);
         }
     }
 
