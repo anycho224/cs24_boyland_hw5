@@ -58,7 +58,6 @@ private:
         }
         if(smallest != index){
             std::swap(heap[index],heap[smallest]);
-            index=smallest;
             bubble_down(smallest);
         }
     }
