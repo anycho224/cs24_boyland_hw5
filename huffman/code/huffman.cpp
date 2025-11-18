@@ -29,8 +29,8 @@ private:
         // TODO
         // Compare the node at 'index' with its parent.
         // If it's smaller, swap them and continue bubbling up.
-        int parent = (index-1)/2;
         while(index>0){
+            int parent = (index-1)/2;
             if(heap[index]->freq<heap[parent]->freq){
                 std::swap(heap[index],heap[parent]);
                 index=parent;
@@ -124,6 +124,7 @@ public:
         internal->right = right;
         heap_insert(internal); 
       }
+      root=heap[0];
     }
 
     // Called after the tree has been built, to decode a series of bits.
