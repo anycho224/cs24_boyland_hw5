@@ -35,9 +35,6 @@ private:
                 std::swap(heap[index],heap[parent]);
                 index=parent;
             }
-            else{
-                index=0;
-            }
         }
     }
 
