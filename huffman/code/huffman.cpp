@@ -142,7 +142,7 @@ public:
             curr= curr->right;
         }
         else{
-            curr->left;
+            curr=curr->left;
         }
         if(curr->left == nullptr && curr->right == nullptr){
             std::cout<< curr->data;
