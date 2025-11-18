@@ -53,7 +53,7 @@ private:
         if(left<size && heap[left]->freq<heap[smallest]->freq){
             smallest=left;
         }
-        if(right<size && heap[right]->freq< heap[index]->freq){
+        if(right<size && heap[right]->freq< heap[smallest]->freq){
             smallest=right;
         }
         if(smallest != index){
