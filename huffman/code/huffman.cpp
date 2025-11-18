@@ -29,6 +29,13 @@ private:
         // TODO
         // Compare the node at 'index' with its parent.
         // If it's smaller, swap them and continue bubbling up.
+        int parent = (index-1)/2;
+        if(parent>0){
+            if(heap[index]<heap[parent]){
+                std::swap(heap[index],heap[parent]);
+                index=parent;
+            }
+        }
     }
 
     void bubble_down(int index) {
@@ -36,14 +43,36 @@ private:
         // Compare the node at 'index' with its children.
         // If it's larger than the smaller child, swap them
         // and continue bubbling down.
+        int smallest = index;
+        int left = 2*index + 1;
+        int right = 2* index + 2;
+        if(heap[left]->freq<heap[smallest]->freq){
+            smallest=left;
+        }
+        if(heap[right]->freq< heap[index]->freq){
+            smallest=right;
+        }
+        if(smallest != index){
+            std::swap(heap[index],heap[smallest]);
+        }
+        bubble_down(index);
     }
 
     void heap_insert(Node* node) {
         // TODO
+        heap.push_back(node);
+        bubble_up(heap.size()-1);
     }
-
+    //replaces root with last array element
     Node* pop() {
         // TODO
+        if(heap.empty()){
+            return nullptr;
+        }
+        Node* root=heap[0];
+        heap[0]=heap.back();
+        heap.pop_back();
+        return root;
     }
 
 
@@ -53,6 +82,7 @@ public:
     // Inserts a new frequency into the heap. Cannot be called after the tree has been built.
     void insert_freq(char c, int freq) {
       //TODO
+      heap_insert(new Node(c,freq));
     }
 
     void print_heap() {
@@ -80,11 +110,28 @@ public:
     // Called once, and builds the code.
     void build_tree() {
       // TODO
+      int size= heap.size();
+      int start= (size/2)-1;
+      for (int i=start; i>=0; i--){
+        bubble_down(i);
+      }
     }
 
     // Called after the tree has been built, to decode a series of bits.
     void decode(bool* bits, int size) {
       // TODO
+      Node* curr= root;
+      for(int i=0; i<size; i++){
+        if(bits[i]){
+            curr= curr->right;
+        }
+        else{
+            curr->left;
+        }
+        if(!curr->left && !curr->right){
+            curr= root;
+        }
+      }
     }
 
     void decode_helper(const std::string& bitstring) {
