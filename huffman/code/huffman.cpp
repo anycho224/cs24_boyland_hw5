@@ -31,7 +31,7 @@ private:
         // If it's smaller, swap them and continue bubbling up.
         int parent = (index-1)/2;
         while(index>0){
-            if(heap[index]<heap[parent]){
+            if(heap[index]->freq<heap[parent]->freq){
                 std::swap(heap[index],heap[parent]);
                 index=parent;
             }
@@ -72,6 +72,9 @@ private:
         Node* root=heap[0];
         heap[0]=heap.back();
         heap.pop_back();
+        if(!heap.empty()){
+            bubble_down(0);
+        }
         return root;
     }
 
@@ -124,6 +127,9 @@ public:
     // Called after the tree has been built, to decode a series of bits.
     void decode(bool* bits, int size) {
       // TODO
+      if(!root){
+        return;
+      }
       Node* curr= root;
       for(int i=0; i<size; i++){
         if(bits[i]){
@@ -132,10 +138,12 @@ public:
         else{
             curr->left;
         }
-        if(!curr->left && !curr->right){
+        if(curr->left == nullptr && curr->right == nullptr){
+            std::cout<< curr->data;
             curr= root;
         }
       }
+      std::cout<<std::endl;
     }
 
     void decode_helper(const std::string& bitstring) {
